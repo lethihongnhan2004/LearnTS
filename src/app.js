@@ -6,13 +6,16 @@ const app = express();
 
 
 // init middleware
-// app.use(morgan("dev"))
-// app.use(helmet())
-// app.use(compression())
+app.use(morgan("dev"))
+app.use(helmet())
+app.use(compression())
 
 
 
 // init db
+require('./dbs/init.mongodb')
+const {CheckOverload} = require('./helpers/check.connect')
+CheckOverload()
 
 
 
