@@ -1,34 +1,32 @@
-'use strict'
-const mongoose = require('mongose')
-const os = require('os')
-const process = require('process')
-const _SECONDS = 5000
-// cout connect 
+'use strict';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkOverload = exports.countConnect = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+const os_1 = __importDefault(require("os"));
+const process_1 = __importDefault(require("process"));
+const _SECONDS = 5000;
+// Count connections
 const countConnect = () => {
-    const numConnection = mongoose.connections.length
-    console.log(`Number of connection::${numConnection}`)
-}
-
-
-// check over load
-
-
+    const numConnections = mongoose_1.default.connections.length;
+    console.log(`Number of connections: ${numConnections}`);
+};
+exports.countConnect = countConnect;
+// Check overload
 const checkOverload = () => {
-    setInterval( () => {
-        const numConnection = mongoose.connections.length
-        const numCores = os.cpus().length;
-        const memoryUsage = process.memoryUsage().rss;
-
-        // exampele
-        const maxConnection = numCores * 5;
-        console.log(`Active connectionb: ${numConnection}`)
-        console.log(`Memory usage:: ""${memoryUsage / 1024 / 1024} MB`)
-        if(numConnection1 > maxConnection) {
-            console.log(`connection overload detected`)
+    setInterval(() => {
+        const numConnections = mongoose_1.default.connections.length;
+        const numCores = os_1.default.cpus().length;
+        const memoryUsage = process_1.default.memoryUsage().rss;
+        // Example
+        const maxConnections = numCores * 5;
+        console.log(`Active connections: ${numConnections}`);
+        console.log(`Memory usage: ${(memoryUsage / 1024 / 1024).toFixed(2)} MB`);
+        if (numConnections > maxConnections) {
+            console.log('Connection overload detected');
         }
-
-    }, _SECONDS) // monitor every 5s
-}
-module.exports = {
-    countConnect
-}
+    }, _SECONDS); // Monitor every 5 seconds
+};
+exports.checkOverload = checkOverload;

@@ -1,15 +1,16 @@
-'use strict'
-
-const mongoose = require('mongoose')
-const connectString = `mongodb://localhost:27017/shopDev`
-
-mongoose.connect( connectString).then(_=> console.log(`connected MongoDb Success`)).catch( err => console.log(`Error Connect!`))
-
-
+'use strict';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const module_1 = __importDefault(require());
+const connectString = `mongodb://localhost:27017/shopDev`;
+module_1.default.connect(connectString)
+    .then(() => console.log(`Connected to MongoDB successfully`))
+    .catch((err) => console.log(`Error connecting to MongoDB: ${err.message}`));
 // dev
-if(1 === 1) {
-  mongoose.set('debug', true)
-  mongoose.set('debug', {color: true})
+if (process.env.NODE_ENV === 'development') {
+    module_1.default.set('debug', true);
+    module_1.default.set('debug', { color: true });
 }
-
-module.exports = mongoose
+exports.default = module_1.default;
